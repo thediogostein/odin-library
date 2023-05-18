@@ -1,2 +1,6 @@
-# odin-library
-This is the Project: Library for the JavaScript Course - The Odin Project
+# Library
+
+This is a project for the Full Stack JavaScript path available on https://www.theodinproject.com/
+
+
+
