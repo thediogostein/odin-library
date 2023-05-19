@@ -1,8 +1,15 @@
 const grid = document.querySelector('.grid');
 const btnNewBook = document.querySelector('#btn-new-book');
+const dialog = document.querySelector('dialog');
+const btnFormAdd = document.querySelector('#form-btn-add');
+
+btnFormAdd.addEventListener('click', (event) => {
+  event.preventDefault();
+
+});
 
 btnNewBook.addEventListener('click', () => {
-  alert('teste');
+  dialog.showModal();
 });
 
 let myLibrary = [

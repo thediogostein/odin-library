@@ -16,6 +16,39 @@
     <main>
       <div class="wrapper s-books">
         <button class="btn btn-primary" id="btn-new-book">Add new book</button>
+        <dialog class="dialog">
+          <form method="dialog" class="form">
+            <div class="form__row">
+              <label for="title" class="label">Title</label>
+              <input type="text" id="title" />
+            </div>
+            <div class="form__row">
+              <label for="author" class="label">Author</label>
+              <input type="text" id="author" />
+            </div>
+            <div class="form__row">
+              <label for="nr-of-pages">Nr of pages</label>
+              <input type="number" id="nr-of-pages" />
+            </div>
+            <div class="form__row form__rowCheckbox">
+              <label for="have-read">Have you read it?</label>
+              <input type="checkbox" id="have-read" />
+            </div>
+            <div class="form__row">
+              <button
+                value="cancel"
+                formmethod="dialog"
+                class="btn"
+                id="form-btn-cancel"
+              >
+                Cancel
+              </button>
+              <button value="default" class="btn" id="form-btn-add">
+                Add book
+              </button>
+            </div>
+          </form>
+        </dialog>
         <div class="grid">
           <article class="card">
             <h2 class="card__title">Título</h2>
