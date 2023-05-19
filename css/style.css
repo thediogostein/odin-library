@@ -175,6 +175,24 @@ table {
   margin-inline: auto;
 }
 
+/* || COMPONENTS */
+.btn {
+  font-family: inherit;
+  padding: 0.5rem 2rem;
+  font-size: var(--fs-200);
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: var(--text-1);
+  background-color: var(--bg-1);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: rgb(73, 72, 72);
+}
+
 /* || GENERAL STYLING */
 
 /* || HEADER */
@@ -194,6 +212,12 @@ table {
   grid-auto-rows: 200px;
   gap: 1rem;
 }
+
+/* || SECTION BOOKS */
+.s-books {
+  padding: 1rem 0;
+}
+
 /* || CARD */
 .card {
   padding: 1rem;
