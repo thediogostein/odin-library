@@ -2,15 +2,40 @@ const grid = document.querySelector('.grid');
 const btnNewBook = document.querySelector('#btn-new-book');
 const dialog = document.querySelector('dialog');
 const btnFormAdd = document.querySelector('#form-btn-add');
+const btnFormCancel = document.querySelector('#form-btn-cancel');
 
-btnFormAdd.addEventListener('click', (event) => {
-  event.preventDefault();
-
-});
+const form = document.querySelector('#form');
 
 btnNewBook.addEventListener('click', () => {
   dialog.showModal();
 });
+
+form.addEventListener('submit', (e) => {
+  const title = form.querySelector('#title').value;
+  console.log(title);
+  e.preventDefault();
+});
+
+// btnFormCancel.addEventListener('click', () => {
+//   console.log('teste');
+// });
+
+// btnFormAdd.addEventListener('click', (event) => {
+//   event.preventDefault();
+//   const title = document.querySelector('#title').value;
+//   const author = document.querySelector('#author').value;
+//   const nrPages = document.querySelector('#nr-of-pages').value;
+//   const haveRead = document.querySelector('#have-read');
+//   const isChecked = haveRead.checked;
+//   if (isChecked) {
+//     console.log('is checked');
+//   } else {
+//     console.log('not checked');
+//   }
+//   console.log(title);
+//   console.log(author);
+//   console.log(nrPages);
+// });
 
 let myLibrary = [
   {

@@ -17,33 +17,31 @@
       <div class="wrapper s-books">
         <button class="btn btn-primary" id="btn-new-book">Add new book</button>
         <dialog class="dialog">
-          <form method="dialog" class="form">
+          <span class="dialog__closeBtn">X</span>
+          <form method="dialog" id="form">
             <div class="form__row">
               <label for="title" class="label">Title</label>
-              <input type="text" id="title" />
+              <input type="text" id="title" required />
             </div>
             <div class="form__row">
               <label for="author" class="label">Author</label>
-              <input type="text" id="author" />
+              <input type="text" id="author" required />
             </div>
             <div class="form__row">
               <label for="nr-of-pages">Nr of pages</label>
-              <input type="number" id="nr-of-pages" />
+              <input type="number" id="nr-of-pages" required />
             </div>
             <div class="form__row form__rowCheckbox">
               <label for="have-read">Have you read it?</label>
-              <input type="checkbox" id="have-read" />
+              <input type="checkbox" id="have-read" required />
             </div>
             <div class="form__row">
               <button
-                value="cancel"
-                formmethod="dialog"
+                type="submit"
+                value="default"
                 class="btn"
-                id="form-btn-cancel"
+                id="form-btn-add"
               >
-                Cancel
-              </button>
-              <button value="default" class="btn" id="form-btn-add">
                 Add book
               </button>
             </div>
