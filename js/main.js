@@ -1,109 +1,111 @@
 const grid = document.querySelector('.grid');
 const btnNewBook = document.querySelector('#btn-new-book');
 const dialog = document.querySelector('dialog');
-const btnFormAdd = document.querySelector('#form-btn-add');
-const btnFormCancel = document.querySelector('#form-btn-cancel');
-
+const btnDialogClose = document.querySelector('#dialog__closeBtn');
 const form = document.querySelector('#form');
+let btnRemoveBook = '';
 
-btnNewBook.addEventListener('click', () => {
-  dialog.showModal();
-});
-
-form.addEventListener('submit', (e) => {
-  const title = form.querySelector('#title').value;
-  console.log(title);
-  e.preventDefault();
-});
-
-// btnFormCancel.addEventListener('click', () => {
-//   console.log('teste');
-// });
-
-// btnFormAdd.addEventListener('click', (event) => {
-//   event.preventDefault();
-//   const title = document.querySelector('#title').value;
-//   const author = document.querySelector('#author').value;
-//   const nrPages = document.querySelector('#nr-of-pages').value;
-//   const haveRead = document.querySelector('#have-read');
-//   const isChecked = haveRead.checked;
-//   if (isChecked) {
-//     console.log('is checked');
-//   } else {
-//     console.log('not checked');
-//   }
-//   console.log(title);
-//   console.log(author);
-//   console.log(nrPages);
-// });
-
-let myLibrary = [
-  {
-    title: 'Title A',
-    author: 'Author A',
-    pages: 100,
-    read: false,
-  },
-  {
-    title: 'Title B',
-    author: 'Author B',
-    pages: 100,
-    read: false,
-  },
-  {
-    title: 'Title C',
-    author: 'Author C',
-    pages: 100,
-    read: false,
-  },
-  {
-    title: 'Title D',
-    author: 'Author D',
-    pages: 100,
-    read: false,
-  },
+const myLibrary = [
+  // {
+  //   title: 'Title A',
+  //   author: 'Author A',
+  //   pages: 100,
+  //   read: false,
+  // },
+  // {
+  //   title: 'Title B',
+  //   author: 'Author B',
+  //   pages: 100,
+  //   read: false,
+  // },
+  // {
+  //   title: 'Title C',
+  //   author: 'Author C',
+  //   pages: 100,
+  //   read: false,
+  // },
+  // {
+  //   title: 'Title D',
+  //   author: 'Author D',
+  //   pages: 100,
+  //   read: false,
+  // },
 ];
+
+// || FUNCTIONS
 
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
-
-  this.info = function () {
-    return `${title} by ${author}, ${pages} pages, ${read}`;
-  };
 }
 
-function addBookToLibrary() {
-  // do stuff here
+function displayBook() {
+  const lastItem = myLibrary[myLibrary.length - 1];
+  const card = document.createElement('article');
+  const cardTitle = document.createElement('h2');
+  const cardAuthor = document.createElement('p');
+  const cardPages = document.createElement('p');
+  const cardRead = document.createElement('p');
+  btnRemoveBook = document.createElement('button');
+
+  card.classList.add('card');
+  card.dataset.cardIndex = cardTitle.classList.add('card__title');
+  cardAuthor.classList.add('card__author');
+  cardPages.classList.add('card__pages');
+  cardRead.classList.add('card__read');
+  btnRemoveBook.classList.add('card___btnRemove');
+
+  cardTitle.innerText = lastItem.title;
+  cardAuthor.innerText = lastItem.author;
+  cardPages.innerText = lastItem.pages;
+  cardRead.innerText = lastItem.read;
+  btnRemoveBook.innerText = 'Remove book';
+
+  grid.append(card);
+  card.append(cardTitle);
+  card.append(cardAuthor);
+  card.append(cardPages);
+  card.append(cardRead);
+  card.append(btnRemoveBook);
+
+  btnRemoveBook.addEventListener('click', () => {
+    console.log('teste');
+  });
 }
 
-function displayBooks() {
-  for (let i = 0; i < myLibrary.length; i += 1) {
-    const card = document.createElement('article');
-    const cardTitle = document.createElement('h2');
-    const cardAuthor = document.createElement('p');
-    const cardPages = document.createElement('p');
-    const cardRead = document.createElement('p');
+function addBookToLibrary(title, author, nrPages, haveRead) {
+  const book = new Book(title, author, nrPages, haveRead);
+  myLibrary.push(book);
+  displayBook();
+}
 
-    card.classList.add('card');
-    cardTitle.classList.add('card__title');
-    cardAuthor.classList.add('card__author');
-    cardPages.classList.add('card__pages');
-    cardRead.classList.add('card__read');
+function removeBook() {}
 
-    cardTitle.innerText = myLibrary[i].title;
-    cardAuthor.innerText = myLibrary[i].author;
-    cardPages.innerText = myLibrary[i].pages;
-    cardRead.innerText = myLibrary[i].read;
+// || EVENT LISTENERS
 
-    grid.append(card);
-    card.append(cardTitle);
-    card.append(cardAuthor);
-    card.append(cardPages);
-    card.append(cardRead);
+btnNewBook.addEventListener('click', () => {
+  dialog.showModal();
+});
+
+form.addEventListener('submit', (e) => {
+  const title = document.querySelector('#title').value;
+  const author = document.querySelector('#author').value;
+  const nrPages = document.querySelector('#nr-of-pages').value;
+  let haveRead = document.querySelector('#have-read');
+  const isHaveReadChecked = haveRead.checked;
+  if (isHaveReadChecked) {
+    haveRead = 'read';
+  } else {
+    haveRead = 'not read';
   }
-}
+  addBookToLibrary(title, author, nrPages, haveRead);
+  form.reset();
+  dialog.close();
+  e.preventDefault();
+});
 
-displayBooks();
+btnDialogClose.addEventListener('click', () => {
+  dialog.close();
+});

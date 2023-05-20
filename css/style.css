@@ -211,10 +211,11 @@ table {
   padding: 2rem;
 }
 
-.dialog__closeBtn {
+#dialog__closeBtn {
   position: absolute;
   top: 8px;
   right: 8px;
+  cursor: pointer;
 }
 
 /* -- form */

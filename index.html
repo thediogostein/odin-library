@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library - JavaScript Course</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
   </head>
   <body>
     <header class="header">
@@ -17,7 +21,9 @@
       <div class="wrapper s-books">
         <button class="btn btn-primary" id="btn-new-book">Add new book</button>
         <dialog class="dialog">
-          <span class="dialog__closeBtn">X</span>
+          <span class="material-symbols-outlined" id="dialog__closeBtn">
+            close
+          </span>
           <form method="dialog" id="form">
             <div class="form__row">
               <label for="title" class="label">Title</label>
@@ -33,7 +39,7 @@
             </div>
             <div class="form__row form__rowCheckbox">
               <label for="have-read">Have you read it?</label>
-              <input type="checkbox" id="have-read" required />
+              <input type="checkbox" id="have-read" />
             </div>
             <div class="form__row">
               <button
@@ -48,7 +54,7 @@
           </form>
         </dialog>
         <div class="grid">
-          <article class="card">
+          <!-- <article class="card">
             <h2 class="card__title">Título</h2>
             <p class="card__author">Autor</p>
             <p class="card__pages">275 páginas</p>
@@ -89,7 +95,7 @@
             <p class="card__author">Autor</p>
             <p class="card__pages">275 páginas</p>
             <p class="card__read">Não lido</p>
-          </article>
+          </article> -->
         </div>
       </div>
     </main>
