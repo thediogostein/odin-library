@@ -5,35 +5,7 @@ const form = document.querySelector('.form');
 const formCancel = document.querySelector('#form-cancel');
 let outputEl = document.querySelector('#output-el');
 
-let myLibrary = [
-  // {
-  //   title: 'Modern Computer Architecture and Organization',
-  //   author: 'Jim Ledin and Dave Farley',
-  //   pages: 666,
-  //   read: false,
-  // },
-  // {
-  //   title:
-  //     "React Key Concepts: Consolidate your knowledge of React's core features",
-  //   author: 'Maximilian Schwarzmuller',
-  //   pages: 590,
-  //   read: true,
-  // },
-  // {
-  //   title:
-  //     "JavaScript - The Definitive Guide: Master the World's Most-Used Programming Language",
-  //   author: 'David Flanagan ',
-  //   pages: 704,
-  //   read: true,
-  // },
-  // {
-  //   title:
-  //     'Eloquent JavaScript, 3rd Edition: A Modern Introduction to Programming ',
-  //   author: 'Marijn Haverbeke',
-  //   pages: 472,
-  //   read: false,
-  // },
-];
+let myLibrary = [];
 
 // EVENT LISTENERS
 addNewBook.addEventListener('click', () => {
@@ -58,6 +30,14 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
+
+  this.changeReadStatus = function () {
+    if (this.read === 'Read') {
+      this.read = 'Not read';
+    } else {
+      this.read = 'Read';
+    }
+  };
 }
 
 function clearGrid() {
@@ -81,35 +61,51 @@ function addBookToLibrary() {
 }
 
 function displayOnPage() {
-  myLibrary.forEach((book) => {
-    const title = book.title;
-    const author = book.author;
-    const pages = book.pages;
-    const read = book.read;
-    appendElements(title, author, pages, read);
+  myLibrary.forEach((book, index) => {
+    createElements(book, index);
   });
 }
 
-function appendElements(title, author, pages, read) {
+function createElements(book, index) {
   const articleEl = document.createElement('article');
+  const contentDiv = document.createElement('div');
   const titleEl = document.createElement('h2');
   const authorEl = document.createElement('p');
   const pagesEl = document.createElement('p');
   const readEl = document.createElement('p');
+  const btnsDiv = document.createElement('div');
+  const btnRemoveEl = document.createElement('button');
+  const btnReadStatusEl = document.createElement('button');
 
-  titleEl.innerText = title;
-  authorEl.innerText = author;
-  pagesEl.innerText = pages;
-  readEl.innerText = read;
+  titleEl.innerText = book.title;
+  authorEl.innerText = book.author;
+  pagesEl.innerText = `${book.pages} pages`;
+  readEl.innerText = book.read;
+  btnReadStatusEl.innerText = 'Change read status';
+  btnRemoveEl.innerText = 'Remove book';
 
   articleEl.classList.add('card');
   titleEl.classList.add('card__title');
   authorEl.classList.add('card__author');
+  pagesEl.classList.add('card__pages');
   readEl.classList.add('card__read');
+  btnRemoveEl.classList.add('card__btn', 'card__btn--remove');
+  btnReadStatusEl.classList.add('card__btn', 'card__btn--status');
 
+  contentDiv.append(titleEl, authorEl, pagesEl, readEl);
+  btnsDiv.append(btnReadStatusEl, btnRemoveEl);
+  articleEl.append(contentDiv, btnsDiv);
   outputEl.append(articleEl);
-  articleEl.append(titleEl);
-  articleEl.append(authorEl);
-  articleEl.append(pagesEl);
-  articleEl.append(readEl);
+
+  btnRemoveEl.addEventListener('click', () => {
+    myLibrary.splice(index, 1);
+    clearGrid();
+    displayOnPage();
+  });
+
+  btnReadStatusEl.addEventListener('click', () => {
+    book.changeReadStatus();
+    clearGrid();
+    displayOnPage();
+  });
 }
