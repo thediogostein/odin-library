@@ -1,38 +1,57 @@
-const grid = document.querySelector('.grid');
-const btnNewBook = document.querySelector('#btn-new-book');
-const dialog = document.querySelector('dialog');
-const btnDialogClose = document.querySelector('#dialog__closeBtn');
-const form = document.querySelector('#form');
-let btnRemoveBook = '';
+// GLOBAL VARIABLES
+const addNewBook = document.querySelector('#btn-new-book');
+const dialog = document.querySelector('.dialog');
+const form = document.querySelector('.form');
+const formCancel = document.querySelector('#form-cancel');
+let outputEl = document.querySelector('#output-el');
 
-const myLibrary = [
+let myLibrary = [
   // {
-  //   title: 'Title A',
-  //   author: 'Author A',
-  //   pages: 100,
+  //   title: 'Modern Computer Architecture and Organization',
+  //   author: 'Jim Ledin and Dave Farley',
+  //   pages: 666,
   //   read: false,
   // },
   // {
-  //   title: 'Title B',
-  //   author: 'Author B',
-  //   pages: 100,
-  //   read: false,
+  //   title:
+  //     "React Key Concepts: Consolidate your knowledge of React's core features",
+  //   author: 'Maximilian Schwarzmuller',
+  //   pages: 590,
+  //   read: true,
   // },
   // {
-  //   title: 'Title C',
-  //   author: 'Author C',
-  //   pages: 100,
-  //   read: false,
+  //   title:
+  //     "JavaScript - The Definitive Guide: Master the World's Most-Used Programming Language",
+  //   author: 'David Flanagan ',
+  //   pages: 704,
+  //   read: true,
   // },
   // {
-  //   title: 'Title D',
-  //   author: 'Author D',
-  //   pages: 100,
+  //   title:
+  //     'Eloquent JavaScript, 3rd Edition: A Modern Introduction to Programming ',
+  //   author: 'Marijn Haverbeke',
+  //   pages: 472,
   //   read: false,
   // },
 ];
 
-// || FUNCTIONS
+// EVENT LISTENERS
+addNewBook.addEventListener('click', () => {
+  dialog.showModal();
+});
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  clearGrid();
+  addBookToLibrary();
+  displayOnPage(myLibrary);
+  form.reset();
+  dialog.close();
+});
+
+formCancel.addEventListener('click', () => {
+  dialog.close();
+});
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -41,71 +60,56 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-function displayBook() {
-  const lastItem = myLibrary[myLibrary.length - 1];
-  const card = document.createElement('article');
-  const cardTitle = document.createElement('h2');
-  const cardAuthor = document.createElement('p');
-  const cardPages = document.createElement('p');
-  const cardRead = document.createElement('p');
-  btnRemoveBook = document.createElement('button');
+function clearGrid() {
+  outputEl.innerHTML = '';
+}
 
-  card.classList.add('card');
-  card.dataset.cardIndex = cardTitle.classList.add('card__title');
-  cardAuthor.classList.add('card__author');
-  cardPages.classList.add('card__pages');
-  cardRead.classList.add('card__read');
-  btnRemoveBook.classList.add('card___btnRemove');
+function addBookToLibrary() {
+  const title = document.querySelector('#form-title').value;
+  const author = document.querySelector('#form-author').value;
+  const pages = document.querySelector('#form-pages').value;
+  let read = document.querySelector('#form-read');
+  const readIsChecked = read.checked;
 
-  cardTitle.innerText = lastItem.title;
-  cardAuthor.innerText = lastItem.author;
-  cardPages.innerText = lastItem.pages;
-  cardRead.innerText = lastItem.read;
-  btnRemoveBook.innerText = 'Remove book';
+  if (readIsChecked) {
+    read = 'Read';
+  } else {
+    read = 'Not read';
+  }
+  const book = new Book(title, author, pages, read);
+  myLibrary.push(book);
+}
 
-  grid.append(card);
-  card.append(cardTitle);
-  card.append(cardAuthor);
-  card.append(cardPages);
-  card.append(cardRead);
-  card.append(btnRemoveBook);
-
-  btnRemoveBook.addEventListener('click', () => {
-    console.log('teste');
+function displayOnPage() {
+  myLibrary.forEach((book) => {
+    const title = book.title;
+    const author = book.author;
+    const pages = book.pages;
+    const read = book.read;
+    appendElements(title, author, pages, read);
   });
 }
 
-function addBookToLibrary(title, author, nrPages, haveRead) {
-  const book = new Book(title, author, nrPages, haveRead);
-  myLibrary.push(book);
-  displayBook();
+function appendElements(title, author, pages, read) {
+  const articleEl = document.createElement('article');
+  const titleEl = document.createElement('h2');
+  const authorEl = document.createElement('p');
+  const pagesEl = document.createElement('p');
+  const readEl = document.createElement('p');
+
+  titleEl.innerText = title;
+  authorEl.innerText = author;
+  pagesEl.innerText = pages;
+  readEl.innerText = read;
+
+  articleEl.classList.add('card');
+  titleEl.classList.add('card__title');
+  authorEl.classList.add('card__author');
+  readEl.classList.add('card__read');
+
+  outputEl.append(articleEl);
+  articleEl.append(titleEl);
+  articleEl.append(authorEl);
+  articleEl.append(pagesEl);
+  articleEl.append(readEl);
 }
-
-function removeBook() {}
-
-// || EVENT LISTENERS
-
-btnNewBook.addEventListener('click', () => {
-  dialog.showModal();
-});
-
-form.addEventListener('submit', (e) => {
-  const title = document.querySelector('#title').value;
-  const author = document.querySelector('#author').value;
-  const nrPages = document.querySelector('#nr-of-pages').value;
-  let haveRead = document.querySelector('#have-read');
-  const isHaveReadChecked = haveRead.checked;
-  if (isHaveReadChecked) {
-    haveRead = 'read';
-  } else {
-    haveRead = 'not read';
-  }
-  addBookToLibrary(title, author, nrPages, haveRead);
-  form.reset();
-  dialog.close();
-  e.preventDefault();
-});
-
-btnDialogClose.addEventListener('click', () => {
-  dialog.close();
-});

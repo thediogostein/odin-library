@@ -20,47 +20,48 @@
     <main>
       <div class="wrapper s-books">
         <button class="btn btn-primary" id="btn-new-book">Add new book</button>
-        <dialog class="dialog">
-          <span class="material-symbols-outlined" id="dialog__closeBtn">
-            close
-          </span>
-          <form method="dialog" id="form">
+        <dialog class="dialog" id="dialog">
+          <form class="form" id="form">
             <div class="form__row">
-              <label for="title" class="label">Title</label>
-              <input type="text" id="title" required />
+              <label for="form-title">Title</label>
+              <input type="text" id="form-title" required />
             </div>
             <div class="form__row">
-              <label for="author" class="label">Author</label>
-              <input type="text" id="author" required />
+              <label for="form-author">Author</label>
+              <input type="text" id="form-author" required />
             </div>
             <div class="form__row">
-              <label for="nr-of-pages">Nr of pages</label>
-              <input type="number" id="nr-of-pages" required />
-            </div>
-            <div class="form__row form__rowCheckbox">
-              <label for="have-read">Have you read it?</label>
-              <input type="checkbox" id="have-read" />
+              <label for="form-pages">Nr of pages</label>
+              <input type="number" id="form-pages" required />
             </div>
             <div class="form__row">
-              <button
-                type="submit"
-                value="default"
-                class="btn"
-                id="form-btn-add"
-              >
-                Add book
-              </button>
+              <label for="form-read">Have you read it?</label>
+              <input type="checkbox" id="form-read" />
             </div>
           </form>
+          <div class="form__btns">
+            <button
+              type="submit"
+              form="form"
+              class="form__btn form__btn--submit"
+              id="form-submit"
+            >
+              Submit
+            </button>
+            <button class="form__btn form__btn--cancel" id="form-cancel">
+              Cancel
+            </button>
+          </div>
         </dialog>
-        <div class="grid">
+
+        <div class="grid" id="output-el">
           <!-- <article class="card">
             <h2 class="card__title">Título</h2>
             <p class="card__author">Autor</p>
             <p class="card__pages">275 páginas</p>
             <p class="card__read">Não lido</p>
-          </article>
-          <article class="card">
+          </article> -->
+          <!-- <article class="card">
             <h2 class="card__title">Título</h2>
             <p class="card__author">Autor</p>
             <p class="card__pages">275 páginas</p>
